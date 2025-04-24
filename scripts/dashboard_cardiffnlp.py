@@ -6,7 +6,7 @@ from wordcloud import WordCloud
 
 # Configuraciones de estilo
 sns.set(style="whitegrid")
-st.set_page_config(page_title="Análisis de Sentimiento en Reddit", layout="wide")
+st.set_page_config(page_title="Análisis de Sentimiento en Reddit con RoBERTa", layout="wide")
 
 # Cargar datos
 @st.cache_data
@@ -15,7 +15,7 @@ def cargar_datos():
 
 df = cargar_datos()
 
-st.title("🗳️ Análisis de Sentimiento de Comentarios de Reddit")
+st.title("Guerra Arancelaria USA - China: Análisis de Sentimiento de Comentarios de Reddit con RoBERTa")
 
 # Sidebar de filtros
 st.sidebar.header("Filtros")
