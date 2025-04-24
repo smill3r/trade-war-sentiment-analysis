@@ -4,12 +4,14 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 
-st.set_page_config(page_title="Análisis de Sentimiento y Temas en Reddit", layout="wide")
+st.set_page_config(page_title="Análisis de Sentimiento y Temas en Reddit con BERTopic", layout="wide")
 
 # Load data
 df = pd.read_csv("data/comments_analizados_con_sentimiento_y_temas.csv")
 df["topic_label"] = df["topic_label"].fillna("Sin tema")
 df["sentiment"] = df["sentiment"].fillna("Sin sentimiento")
+
+st.title("Guerra Arancelaria USA - China: Modelado de Temas de Análisis de Sentimiento con BERTopic")
 
 # Sidebar filters
 st.sidebar.header("Filtros")
