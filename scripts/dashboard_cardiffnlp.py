@@ -11,7 +11,7 @@ st.set_page_config(page_title="Análisis de Sentimiento en Reddit", layout="wide
 # Cargar datos
 @st.cache_data
 def cargar_datos():
-    return pd.read_csv("../data/comments_analizados_con_sentimiento_cardiffnlp.csv")
+    return pd.read_csv("data/comments_analizados_con_sentimiento_cardiffnlp.csv")
 
 df = cargar_datos()
 
