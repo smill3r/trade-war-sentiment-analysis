@@ -41,11 +41,26 @@ else:
     st.stop()
 
 # Visualizations
+
+col1, col2 = st.columns(2)
+
 # Distribución de sentimientos
-st.subheader("Distribución de Sentimiento")
-fig1, ax1 = plt.subplots()
-sns.countplot(data=df_filtrado, x="sentiment", palette="Set2", ax=ax1)
-st.pyplot(fig1)
+with col1:
+    st.subheader("Distribución de Sentimiento")
+    fig1, ax1 = plt.subplots()
+    sns.countplot(data=df_filtrado, x="sentiment", palette="Set2", ax=ax1)
+    ax1.set_ylabel("Numero de comentarios")
+    st.pyplot(fig1)
+
+with col2:
+# Wordcloud
+    st.subheader("Nube de Palabras")
+    text = " ".join(df_filtrado["comment_clean"].dropna())
+    wordcloud = WordCloud(width=800, height=400, background_color="white").generate(text)
+    fig4, ax4 = plt.subplots()
+    ax4.imshow(wordcloud, interpolation="bilinear")
+    ax4.axis("off")
+    st.pyplot(fig4)
 
 # Sentimiento promedio por palabra clave
 st.subheader("Sentimiento promedio por palabra clave")
@@ -60,6 +75,7 @@ st.pyplot(fig2)
 # Sentimiento a lo largo del tiempo
 st.subheader("Sentimiento a lo largo del tiempo")
 df_filtrado["created_utc"] = pd.to_datetime(df_filtrado["created_utc"], errors='coerce')
+df_filtrado = df_filtrado[df_filtrado['created_utc'].dt.year == 2025]
 df_filtrado["fecha"] = df_filtrado["created_utc"].dt.date
 sent_time = df_filtrado.groupby("fecha")["sentiment_score"].mean()
 
@@ -68,16 +84,8 @@ sent_time.plot(ax=ax3, marker='o', linestyle='-')
 ax3.set_title("Sentimiento promedio diario")
 ax3.set_ylabel("Score")
 ax3.set_xlabel("Fecha")
+ax3.tick_params(axis='x', rotation=45)
 st.pyplot(fig3)
-
-# Wordcloud
-st.subheader("Nube de Palabras")
-text = " ".join(df_filtrado["comment_clean"].dropna())
-wordcloud = WordCloud(width=800, height=400, background_color="white").generate(text)
-fig4, ax4 = plt.subplots()
-ax4.imshow(wordcloud, interpolation="bilinear")
-ax4.axis("off")
-st.pyplot(fig4)
 
 # Tópicos más frecuentes
 st.subheader("Distribución de Comentarios por Tema")
@@ -85,6 +93,7 @@ fig5, ax5 = plt.subplots()
 df_filtrado["topic_label"].value_counts().plot(kind="bar", color="orchid", ax=ax5)
 ax5.set_xlabel("Tema")
 ax5.set_ylabel("Número de comentarios")
+ax5.tick_params(axis='x', rotation=45)
 st.pyplot(fig5)
 
 # Sentimiento por tema
@@ -94,6 +103,7 @@ sns.boxplot(x="topic_label", y="sentiment_score", data=df_filtrado, palette="vla
 ax6.set_xlabel("Tema")
 ax6.set_ylabel("Sentiment Score")
 ax6.set_xticklabels(ax6.get_xticklabels(), rotation=45)
+ax6.tick_params(axis='x', rotation=45)
 st.pyplot(fig6)
 
 # Tabla de comentarios
