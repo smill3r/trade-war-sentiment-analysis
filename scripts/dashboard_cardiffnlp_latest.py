@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 
 # Load data
-df = pd.read_csv("../data/comments_analizados_con_sentimiento_latest.csv")
+df = pd.read_csv("data/comments_analizados_con_sentimiento_latest.csv")
 
 # Streamlit settings
 st.set_page_config(page_title="Sentiment Analysis Dashboard", layout="wide")
