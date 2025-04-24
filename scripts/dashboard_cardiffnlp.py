@@ -58,6 +58,30 @@ ax.set_xlabel("Palabra clave")
 ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
 st.pyplot(fig)
 
+# Sentiment Over Time (Time series plot)
+st.subheader("Sentimiento a lo largo del Tiempo")
+df_filtrado['created_utc'] = pd.to_datetime(df_filtrado['created_utc'], errors='coerce')
+df_filtrado = df_filtrado[df_filtrado['created_utc'].dt.year == 2025]
+df_filtrado['date'] = df_filtrado['created_utc'].dt.date
+sentiment_time = df_filtrado.groupby('date')['sentiment_score'].mean()
+
+fig, ax = plt.subplots(figsize=(12,6))
+sentiment_time.plot(kind='line', ax=ax, color='b', marker='o', linestyle='-', linewidth=2)
+ax.set_title("Sentimiento Promedio a lo largo del Tiempo")
+ax.set_xlabel("Fecha")
+ax.set_ylabel("Sentimiento Promedio")
+plt.xticks(rotation=45)
+st.pyplot(fig)
+
+# Boxplot of Sentiment by Keyword
+st.subheader("Distribucion del Sentimiento por Palabra Clave (Boxplot)")
+fig, ax = plt.subplots(figsize=(12,6))
+sns.boxplot(x="keyword", y="sentiment_score", data=df_filtrado, palette="vlag", ax=ax)
+ax.set_title("Distribucion de Puntuacion del Sentimiento por Palabra Clave")
+ax.set_xlabel("Palabra Clave")
+ax.set_ylabel("Puntuacion del Sentimiento")
+plt.xticks(rotation=45)
+st.pyplot(fig)
+
 st.subheader("Tabla de comentarios")
 st.dataframe(df_filtrado[["keyword", "sentiment", "comment"]].reset_index(drop=True))
-
