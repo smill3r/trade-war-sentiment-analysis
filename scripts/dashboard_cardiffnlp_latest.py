@@ -8,7 +8,9 @@ from wordcloud import WordCloud
 df = pd.read_csv("data/comments_analizados_con_sentimiento_latest.csv")
 
 # Streamlit settings
-st.set_page_config(page_title="Sentiment Analysis Dashboard", layout="wide")
+st.set_page_config(page_title="Sentiment Analysis Dashboard con RoBERTa (latest)", layout="wide")
+
+st.title("Guerra Arancelaria USA - China: Análisis de Sentimiento de Comentarios de Reddit con RoBERTa (latest)")
 
 # Sidebar filters
 st.sidebar.header("Filters")
