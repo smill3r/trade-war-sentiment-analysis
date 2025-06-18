@@ -42,7 +42,7 @@ with col1:
 
 with col2:
     st.subheader("Nube de palabras")
-    texto = " ".join(df_filtrado["comment_clean"].dropna())
+    texto = " ".join(df_filtrado["comment"].dropna())
     nube = WordCloud(width=600, height=400, background_color="white").generate(texto)
     fig, ax = plt.subplots()
     ax.imshow(nube, interpolation="bilinear")
